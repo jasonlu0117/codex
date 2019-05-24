@@ -5,6 +5,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.codec.CodecException;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,7 +39,7 @@ public class ApixController {
         DocDocument docDocument = new DocDocument(documentationCache.getDocumentationLookup());
         Configuration cfg = new Configuration();
         try {
-            cfg.setDirectoryForTemplateLoading(ResourceUtils.getFile("classpath:template")); //模板文件夹路径
+            cfg.setClassForTemplateLoading(this.getClass(),"/docTemplate"); //模板文件夹路径
 
             Template template = cfg.getTemplate("doc.ftl");  //模板文件
             cfg.setDefaultEncoding("UTF-8");
