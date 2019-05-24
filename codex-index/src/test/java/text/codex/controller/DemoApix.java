@@ -42,4 +42,9 @@ public class DemoApix {
 
     }
 
+    @ApiOperation(value = "测试接口3")
+    @PostMapping("ceshi-3")
+    private void ceshi33(@ApiParam(value = "登录名") @RequestParam(required = false) String loginName) {
+
+    }
 }
