@@ -1,7 +1,8 @@
 
+
 dependencies {
     compile project(':codex-core')
-    compile project(':codex-apix')
+//    compile project(':codex-apix')
 
     implementation('org.webjars:bootstrap:3.3.7-1')
     implementation('org.webjars:jquery:3.1.1')
@@ -18,5 +19,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-aop")
     testImplementation('org.springframework.boot:spring-boot-starter-web')
 
-
+    compile('io.springfox:springfox-swagger2:2.9.2')
+    compile('io.springfox:springfox-swagger-ui:2.9.2')
+    compile('com.github.xiaoymin:swagger-bootstrap-ui:1.8.3')
 }
+jar.enabled=true

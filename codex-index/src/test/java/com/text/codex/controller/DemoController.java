@@ -1,22 +1,18 @@
 package com.text.codex.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.text.codex.db.entity.DemoEntity;
 import com.text.codex.db.service.DemoService;
+import com.text.codex.util.VG;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pub.codex.apix.annotations.Api;
-import pub.codex.apix.annotations.ApiOperation;
-import pub.codex.apix.annotations.ApiParam;
-import pub.codex.apix.annotations.constant.Describe;
-import pub.codex.apix.annotations.group.VG;
 import pub.codex.common.models.R;
-import com.text.codex.db.entity.DemoEntity;
 import pub.codex.core.template.utils.WhereUtils;
-
-import java.util.Map;
 
 /**
  * 演示表
@@ -66,7 +62,7 @@ public class DemoController {
      */
     @ApiOperation("删除接口")
     @DeleteMapping("/demo/{id}")
-    public R delete(@ApiParam(Describe.ID) @PathVariable("id") String id) {
+    public R delete(@ApiParam("id") @PathVariable("id") String id) {
         demoService.removeById(id);
         return R.ok();
     }
@@ -80,7 +76,7 @@ public class DemoController {
      */
     @ApiOperation("详情接口")
     @GetMapping("/demo/{id}")
-    public R detail(@ApiParam(Describe.ID) @PathVariable("id") String id) {
+    public R detail(@ApiParam("id") @PathVariable("id") String id) {
         return R.ok().data(demoService.getById(id));
     }
 
@@ -95,7 +91,7 @@ public class DemoController {
      */
     @ApiOperation("列表接口")
     @GetMapping("/buildingBasic")
-    public R list(@ApiParam(Describe.WHERE) @RequestParam(required = false) String where, @ApiParam(Describe.KEYWORD) @RequestParam(required = false) String keyword, @ApiParam(Describe.PAGE_INDEX) @RequestParam(defaultValue = "0") Long pageIndex, @ApiParam(Describe.PAGE_SIZE) @RequestParam(defaultValue = "10") Long pageSize) {
+    public R list(@ApiParam("where") @RequestParam(required = false) String where, @ApiParam("keyword") @RequestParam(required = false) String keyword, @ApiParam("pageIndex") @RequestParam(defaultValue = "0") Long pageIndex, @ApiParam("pageSize") @RequestParam(defaultValue = "10") Long pageSize) {
         QueryWrapper<DemoEntity> entity = new QueryWrapper<>();
 
         WhereUtils.setWhereAndKeyword(entity, where, keyword); // 设置 where 和  keyword查询

@@ -1,3 +1,5 @@
+
+
 dependencies {
     compile project(':codex-common')
     compile("com.google.code.gson:gson:2.8.5")
@@ -6,3 +8,4 @@ dependencies {
     compile("org.springframework:spring-jdbc")
     implementation("mysql:mysql-connector-java:5.1.38")
 }
+jar.enabled=true
