@@ -40,102 +40,101 @@ subprojects() {
 
     // 后面的都是打包的配置
     // 发布到远程仓库配置
-//    task sourcesJar(type: Jar) {
-//        classifier = 'sources'
-//        from sourceSets.main.allJava
-//    }
-//    // 生成 javadoc jar
-//    task javadocJar(type: Jar) {
-//        classifier = 'javadoc'
-//        from javadoc.destinationDir
-//    }
-//
-//
-//    publishing {
-//
-//        publications {
-//
-//            mavenJava(MavenPublication) {
-//                groupId project.group
-//                artifactId project.name
-//                version project.version
-//                from components.java
-//                artifact sourcesJar
-//                artifact javadocJar
-//
-//                pom {
-//                    name = "Code-x"
-//                    description = "Code-X 让程序狗喝茶"
-//                    url = "https://github.com/codex-league/codex"
-//                    licenses {
-//                        license {
-//                            name = "The Apache License, Version 2.0"
-//                            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-//                        }
-//                    }
-//                    developers {
-//                        developer {
-//                            id = "codex"
-//                            name = "codex"
-//                            email = "codex_team@163.com"
-//                        }
-//                    }
-//                    scm {
-//                        connection = "scm:git:https://github.com/codex-league/codex.git"
-//                        developerConnection = "scm:git:https://github.com/codex-league/codex.git"
-//                        url = "https://github.com/codex-league/codex"
-//                    }
-//
-//
-//                }
-//            }
-//        }
-//        repositories {
-//            maven {
-//                name 'sonatypeRepository'
-//                url 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
-//
-//                credentials {
-//                    username = System.getenv("NEXUS_USERNAME") // 获取环境变量
-//                    password = System.getenv("NEXUS_PASSWORD") // 获取环境变量
-//                }
-//            }
-//
-//            maven {
-//                name 'sonatypeSnapshotRepository'
-//                url 'https://oss.sonatype.org/content/repositories/snapshots'
-//
-//                credentials {
-//                    username = System.getenv("NEXUS_USERNAME") // 获取环境变量
-//                    password = System.getenv("NEXUS_PASSWORD") // 获取环境变量
-//                }
-//            }
-//
-//        }
-//    }
-//
-//    signing {
-//        sign publishing.publications.mavenJava
-//    }
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allJava
+    }
+    // 生成 javadoc jar
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
 
-    // 发布到本地仓库配置
-    // 获取本地仓库路径
-    def localRepositoryPath = 'file://' + new File(System.getProperty('user.home'), '.m2/repository/').absolutePath
-//    def localRepositoryPath = 'file://C:/Users/wonders/.m2/repository/'
-    // 打包至本地仓库配置
-    uploadArchives {
+
+    publishing {
+
+        publications {
+
+            mavenJava(MavenPublication) {
+                groupId project.group
+                artifactId project.name
+                version project.version
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+
+                pom {
+                    name = "Code-x"
+                    description = "Code-X 让程序狗喝茶"
+                    url = "https://github.com/codex-league/codex"
+                    licenses {
+                        license {
+                            name = "The Apache License, Version 2.0"
+                            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = "codex"
+                            name = "codex"
+                            email = "codex_team@163.com"
+                        }
+                    }
+                    scm {
+                        connection = "scm:git:https://github.com/codex-league/codex.git"
+                        developerConnection = "scm:git:https://github.com/codex-league/codex.git"
+                        url = "https://github.com/codex-league/codex"
+                    }
+                }
+            }
+        }
         repositories {
-            // mavenDeployer 需要依赖 apply plugin: 'maven'
-            mavenDeployer {
-                repository(url: localRepositoryPath)
-                pom.project {
-                    groupId = project.group     //  当前项目组  com.xxx
-                    artifactId = project.name   // 当前项目名称 xxx
-                    version = project.version   //当前项目版本  0.0.1
+            maven {
+                name 'sonatypeRepository'
+                url 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+
+                credentials {
+                    username = System.getenv("NEXUS_USERNAME") // 获取环境变量
+                    password = System.getenv("NEXUS_PASSWORD") // 获取环境变量
+                }
+            }
+
+            maven {
+                name 'sonatypeSnapshotRepository'
+                url 'https://oss.sonatype.org/content/repositories/snapshots'
+
+                credentials {
+                    username = System.getenv("NEXUS_USERNAME") // 获取环境变量
+                    password = System.getenv("NEXUS_PASSWORD") // 获取环境变量
                 }
             }
         }
     }
+
+//    signing {
+//        sign publishing.publications.mavenJava
+//    }
+
+    /*-------------------publishing和uploadArchives都能完成jar包发布--------------------*/
+    
+//    // 发布到本地仓库配置
+//    // 获取本地仓库路径
+//    def localRepositoryPath = 'file://' + new File(System.getProperty('user.home'), '.m2/repository/').absolutePath
+////    def localRepositoryPath = 'file://C:/Users/wonders/.m2/repository/'
+//    // 打包至本地仓库配置
+//    uploadArchives {
+//        repositories {
+//            // mavenDeployer 需要依赖 apply plugin: 'maven'
+//            mavenDeployer {
+//                repository(url: localRepositoryPath)
+//                pom.project {
+//                    groupId = project.group     //  当前项目组  com.xxx
+//                    artifactId = project.name   // 当前项目名称 xxx
+//                    version = project.version   //当前项目版本  0.0.1
+//                }
+//            }
+//        }
+//    }
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"

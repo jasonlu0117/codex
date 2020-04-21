@@ -60,4 +60,43 @@ public class ${className}Entity implements Serializable {
 		return $column.attrname;
 	}
 #end
+
+	public static class Builder {
+		#foreach ($column in $columns)
+			#if($column.columnName == $pk.columnName)
+		@TableId
+		@JsonSerialize(using=ToStringSerializer.class)
+			#end
+			#if(${column.annotationList})
+				#foreach ($annotation in $column.annotationList)
+					${annotation}
+				#end
+			#end
+		private $column.attrType $column.attrname;
+		#end
+
+		private Builder() {}
+
+		public static Builder an${className}Entity() {
+			return new Builder();
+		}
+
+		#foreach ($column in $columns)
+		public Builder with${column.attrName}($column.attrType $column.attrname) {
+			this.$column.attrname = $column.attrname;
+			return this;
+		}
+
+		#end
+
+		public ${className}Entity build() {
+			${className}Entity entity = new ${className}Entity();
+			#foreach ($column in $columns)
+			entity.set${column.attrName}(this.$column.attrname);
+			#end
+			return entity;
+		}
+
+	}
+
 }
